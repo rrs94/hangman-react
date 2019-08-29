@@ -63,10 +63,24 @@ export default class Hangman extends Component {
     });
   }
 
+  isGameOver = () => {
+    const { phrase, letterMap, lifes } = this.state;
+    if (lifes <= 0) {
+      return true;
+    }
+    for (let i = 0; i < phrase.length; i++) {
+      if (!letterMap[phrase[i]]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   render() {
     const { lifes, phrase, letterMap } = this.state;
     const currentLife = IMAGE_LIFES_MAP[lifes];
     const playerLost = lifes === 0;
+    const gameOver = this.isGameOver();
 
     return (
       <Container>
@@ -80,14 +94,7 @@ export default class Hangman extends Component {
           y={currentLife.y}
           x={currentLife.x}
         />
-        {
-          playerLost ? (
-            <Message image={sadDogImage} title="Sorry, try again! u__u" /> 
-          ) : (
-            null
-          )
-        }
-        <LetterPicker letterMap={letterMap} onClickLetter={this.handleClickLetter} disabled={lifes === 0} />
+        <LetterPicker letterMap={letterMap} onClickLetter={this.handleClickLetter} disabled={gameOver} />
         <Actions>
           <Button
             primary
