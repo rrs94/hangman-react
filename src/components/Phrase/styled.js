@@ -15,6 +15,6 @@ export const StyledChar = styled.span`
   margin: 0 10px;
   padding: 5px;
   font-size: 20px;
-  border-bottom: 2px solid ${ props => props.active ? 'black' : 'silver'};
-  color: ${ props => props.active ? 'black' : 'silver'};
+  border-bottom: 2px solid ${ props => props.active ? 'black' : 'black'};
+  color: ${ props => props.active ? 'black' : 'black'};
 `;

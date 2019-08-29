@@ -98,33 +98,21 @@ export default class Hangman extends Component {
     return (
       <Container>
         <Title>Hangman</Title>
-        <Phrase
-          text={phrase}
-          chars={letterMap}
-          phraseMap={phraseMap}
-        />
         <PoleStatus
           background={poleImg}
-          y={currentLife.y}
-          x={currentLife.x}
         />
         {
-          playerLost && <Message image={sadDogImage} title="You lost" />
+          playerLost && <Message title="You lost" />
         }
         {
-          playerWon && <Message image={happyDogImage} title="You won!" />
+          playerWon && <Message title="You won!" />
         }
-        <LetterPicker letterMap={letterMap} onClickLetter={this.handleClickLetter} disabled={gameOver} />
+        <LetterPicker letterMap={letterMap} />
         <Actions>
-          <Button
-            primary
-            onClick={this.handleNewGame}
-          >
+          <Button>
             New Game
           </Button>
-          <Button
-            onClick={this.handleResetGame}
-          >
+          <Button>
             Restart
           </Button>
         </Actions>
