@@ -4,6 +4,8 @@ export const LetterContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
+  width: 80%;
+  margin: auto; 
 `;
 
 export const LetterComponent = styled.div`
@@ -26,17 +28,6 @@ export const LetterComponent = styled.div`
     }
   }}
   font-family: fantasy;
-  text-decoration: ${(props) => {
-    if (props.notFound) {
-      return 'line-through';
-    } else if (props.found) {
-      return 'underline';
-    } else {
-      return 'inherit';
-    }
-  }}
-  text-decoration-style: solid;
-  text-decoration-color: inherit;
   border: 1px solid;
   padding: 5px;
   margin-left: 5px;

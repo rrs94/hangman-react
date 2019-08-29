@@ -1,11 +1,11 @@
 import React from 'react';
 import { LetterComponent, LetterContainer } from './styled.js';
 
-const LetterPicker = ({ letterMap, onClickLetter }) => {
+const LetterPicker = ({ letterMap, onClickLetter, disabled }) => {
   const letterObjects = Object.keys(letterMap).map((key) => {
     if (letterMap[key] === null) {
       return (
-        <LetterComponent available onClick={() => onClickLetter(key)}>
+        <LetterComponent available={!disabled} onClick={() => !disabled && onClickLetter(key)}>
           {
             key
           }
