@@ -5,19 +5,19 @@ import {
   StyledWord as Word,
 } from './styled';
 
-const Phrase = ({ className, text, chars }) => {
+const Phrase = ({ className, text, chars, phraseMap }) => {
   const listWords = text.split(" ");
   return (
     <Container className={className} >
       {
-        listWords.map((word) => {
+        listWords.map((word, index) => {
           const listChars = word.split("");
           return (
-            <Word>
+            <Word key={`${word}${index}`}>
               {
-                listChars.map((char) => {
-                  const isPicked = chars[char.toLowerCase()];
-                  return <Char active={isPicked}>{isPicked ? char : "•"}</Char>;
+                listChars.map((char, index) => {
+                  const isPicked = chars[char.toLowerCase()] || !phraseMap[char.toLowerCase()];
+                  return <Char key={`${char}${index}`} active={isPicked}>{isPicked ? char : "•"}</Char>;
                 })
               }
             </Word>

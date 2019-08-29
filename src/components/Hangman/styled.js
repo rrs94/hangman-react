@@ -12,7 +12,7 @@ export const StyledTitle = styled.h1`
 export const StyledPhrase = styled(Phrase)`
   display: block;
   margin: auto;
-  width: 650px;
+  max-width: 650px;
   font-family: fantasy;
   text-align: center;
 `;

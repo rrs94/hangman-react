@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import poleImg from '../../assets/images/hangman.jpg';
-import sadDogImage from '../../assets/images/sad_dog.png'
+import sadDogImage from '../../assets/images/sad_dog.png';
+import happyDogImage from '../../assets/images/happy_dog.png';
 import {
   START_LIFES,
   IMAGE_LIFES_MAP,
@@ -23,30 +24,46 @@ export default class Hangman extends Component {
     lifes: START_LIFES,
     phrase: "",
     letterMap: START_LETTERS,
+    phraseMap: {},
   };
 
   componentDidMount() {
     const totalMovies = MoviesJSON.length;
-    const random = Math.ceil(Math.random() * totalMovies);
+    const random = Math.ceil(Math.random() * totalMovies) - 1;
+    const phrase = MoviesJSON[Math.max(random, 0)];
+    const phraseMap = {};
+    for (let i = 0; i < phrase.length; i++) {
+      if (START_LETTERS.hasOwnProperty(phrase[i].toLowerCase())) {
+        phraseMap[phrase[i].toLowerCase()] = true;
+      }
+    }
     this.setState({
-      phrase: MoviesJSON[random],
+      phrase,
+      phraseMap,
     });
   }
 
   handleNewGame = () => {
     const totalMovies = MoviesJSON.length;
-    const random = Math.ceil(Math.random() * totalMovies);
+    const random = Math.ceil(Math.random() * totalMovies) - 1;
+    const phrase = MoviesJSON[Math.max(random, 0)];
+    const phraseMap = {};
+    for (let i = 0; i < phrase.length; i++) {
+      if (START_LETTERS.hasOwnProperty(phrase[i].toLowerCase())) {
+        phraseMap[phrase[i].toLowerCase()] = true;
+      }
+    }
     this.setState({
       lifes: START_LIFES,
-      phrase: MoviesJSON[random],
+      phrase,
+      phraseMap,
       letterMap: START_LETTERS,
     });
   }
 
   handleClickLetter = (key) => {
-    const { letterMap, phrase, lifes } = this.state;
-    const phraseLowercase = phrase.toLowerCase();
-    const foundInPhrase = phraseLowercase.includes(key);
+    const { letterMap, phraseMap, lifes } = this.state;
+    const foundInPhrase = phraseMap[key] || false;
     this.setState({
       letterMap: {
         ...letterMap,
@@ -64,23 +81,19 @@ export default class Hangman extends Component {
   }
 
   isGameOver = () => {
-    const { phrase, letterMap, lifes } = this.state;
+    const { phraseMap, letterMap, lifes } = this.state;
     if (lifes <= 0) {
       return true;
     }
-    for (let i = 0; i < phrase.length; i++) {
-      if (!letterMap[phrase[i]]) {
-        return false;
-      }
-    }
-    return true;
+    return Object.keys(phraseMap).every((key) => letterMap[key]);
   }
 
   render() {
-    const { lifes, phrase, letterMap } = this.state;
+    const { lifes, phrase, letterMap, phraseMap } = this.state;
     const currentLife = IMAGE_LIFES_MAP[lifes];
     const playerLost = lifes === 0;
     const gameOver = this.isGameOver();
+    const playerWon = gameOver && !playerLost;
 
     return (
       <Container>
@@ -88,6 +101,7 @@ export default class Hangman extends Component {
         <Phrase
           text={phrase}
           chars={letterMap}
+          phraseMap={phraseMap}
         />
         <PoleStatus
           background={poleImg}
@@ -95,7 +109,10 @@ export default class Hangman extends Component {
           x={currentLife.x}
         />
         {
-          playerLost ? <Message image={sadDogImage} title="You lost" /> : null
+          playerLost && <Message image={sadDogImage} title="You lost" />
+        }
+        {
+          playerWon && <Message image={happyDogImage} title="You won!" />
         }
         <LetterPicker letterMap={letterMap} onClickLetter={this.handleClickLetter} disabled={gameOver} />
         <Actions>

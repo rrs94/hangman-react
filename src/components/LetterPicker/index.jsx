@@ -5,7 +5,7 @@ const LetterPicker = ({ letterMap, onClickLetter, disabled }) => {
   const letterObjects = Object.keys(letterMap).map((key) => {
     if (letterMap[key] === null) {
       return (
-        <LetterComponent available={!disabled} onClick={() => !disabled && onClickLetter(key)}>
+        <LetterComponent key={key} available={!disabled} onClick={() => !disabled && onClickLetter(key)}>
           {
             key
           }
@@ -13,7 +13,7 @@ const LetterPicker = ({ letterMap, onClickLetter, disabled }) => {
       );
     } else if (!letterMap[key]) {
       return (
-        <LetterComponent notFound>
+        <LetterComponent key={key} notFound>
           {
             key
           }
@@ -21,7 +21,7 @@ const LetterPicker = ({ letterMap, onClickLetter, disabled }) => {
       );
     } else {
       return (
-        <LetterComponent found>
+        <LetterComponent key={key} found>
           {
             key
           }
