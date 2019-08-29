@@ -18,15 +18,57 @@ const IMAGE_LIFES_MAP = {
   7: { x: 2, y: 1},
 }
 
+const START_LETTERS = {
+  a: null,
+  b: null,
+  c: null,
+  d: null,
+  e: null,
+  f: null,
+  g: null,
+  h: null,
+  i: null,
+  j: null,
+  k: null,
+  l: null,
+  m: null,
+  n: null,
+  o: null,
+  p: null,
+  q: null,
+  r: null,
+  s: null,
+  t: null,
+  u: null,
+  v: null,
+  w: null,
+  x: null,
+  y: null,
+  z: null,
+}
+
 export default class Hangman extends Component {
   state = {
     lifes: START_LIFES,
+    letterMap: START_LETTERS,
+  };
+
+  onClickLetter = (key) => {
+    const tempLetterMap = this.state.letterMap;
+    tempLetterMap[key] = 
+    this.setState({
+      letterMap: {
+        ...this.state.letterMap,
+        [key]: true,
+      }
+    });
   };
 
   render() {
-    const { lifes } = this.state;
+    const { lifes, letterMap } = this.state;
     const currentLife = IMAGE_LIFES_MAP[lifes];
     console.log(currentLife);
+    console.log({letterMap});
 
     return (
       <Container>
@@ -37,7 +79,7 @@ export default class Hangman extends Component {
           y={currentLife.y}
           x={currentLife.x}
         />
-        <LetterPicker />
+        <LetterPicker letterMap={letterMap} onClickLetter={this.onClickLetter} />
       </Container>
     );
   }
