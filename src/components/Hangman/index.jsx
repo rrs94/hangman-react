@@ -94,6 +94,9 @@ export default class Hangman extends Component {
           y={currentLife.y}
           x={currentLife.x}
         />
+        {
+          playerLost ? <Message image={sadDogImage} title="You lost" /> : null
+        }
         <LetterPicker letterMap={letterMap} onClickLetter={this.handleClickLetter} disabled={gameOver} />
         <Actions>
           <Button
