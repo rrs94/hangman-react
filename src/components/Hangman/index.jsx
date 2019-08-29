@@ -3,7 +3,8 @@ import poleImg from '../../assets/images/hangman.jpg';
 import {
   START_LIFES,
   IMAGE_LIFES_MAP,
-} from './../../utils/constants';
+} from '../../utils/constants';
+import MoviesJSON from '../../utils/movies.json';
 import {
   StyledPhrase as Phrase,
   StyledActions as Actions,
@@ -17,13 +18,23 @@ import {
 export default class Hangman extends Component {
   state = {
     lifes: START_LIFES,
-    phrase: "This is the most awesome thing",
+    phrase: "",
   };
 
+  componentDidMount() {
+    const totalMovies = MoviesJSON.length;
+    const random = Math.ceil(Math.random() * totalMovies);
+    this.setState({
+      phrase: MoviesJSON[random],
+    });
+  }
+
   handleNewGame = () => {
+    const totalMovies = MoviesJSON.length;
+    const random = Math.ceil(Math.random() * totalMovies);
     this.setState({
       lifes: START_LIFES,
-      phrase: "New Word for a new game",
+      phrase: MoviesJSON[random],
     });
   }
 
