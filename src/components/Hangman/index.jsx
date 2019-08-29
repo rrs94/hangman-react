@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import poleImg from '../../assets/images/hangman.jpg';
+import sadDogImage from '../../assets/images/sad_dog.png'
 import {
   START_LIFES,
   IMAGE_LIFES_MAP,
@@ -14,6 +15,7 @@ import {
   StyledPoleStatus as PoleStatus,
   StyledLetterPicker as LetterPicker,
   StyledContainer as Container,
+  StyledMessage as Message,
 } from './styled';
 
 export default class Hangman extends Component {
@@ -64,6 +66,7 @@ export default class Hangman extends Component {
   render() {
     const { lifes, phrase, letterMap } = this.state;
     const currentLife = IMAGE_LIFES_MAP[lifes];
+    const playerLost = lifes === 0;
 
     return (
       <Container>
@@ -77,6 +80,13 @@ export default class Hangman extends Component {
           y={currentLife.y}
           x={currentLife.x}
         />
+        {
+          playerLost ? (
+            <Message image={sadDogImage} title="Sorry, try again! u__u" /> 
+          ) : (
+            null
+          )
+        }
         <LetterPicker letterMap={letterMap} onClickLetter={this.handleClickLetter} disabled={lifes === 0} />
         <Actions>
           <Button

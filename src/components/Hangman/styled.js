@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Phrase from '../Phrase';
+import Message from '../Message';
 import LetterPicker from '../LetterPicker';
 
 export const StyledContainer = styled.div``;
@@ -13,6 +14,10 @@ export const StyledPhrase = styled(Phrase)`
   margin: auto;
   width: 650px;
   font-family: fantasy;
+  text-align: center;
+`;
+export const StyledMessage = styled(Message)`
+  margin: auto;
   text-align: center;
 `;
 export const StyledPoleStatus = styled.div`
