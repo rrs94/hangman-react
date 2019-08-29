@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledContainer = styled.div`
-  display: block;
-  margin: auto;
-  width: 900px;
-  font-family: fantasy;
-  text-align: center;
-`;
+export const StyledContainer = styled.div``;
 
 export const StyledSpace = styled.span`
   display: inline-block;

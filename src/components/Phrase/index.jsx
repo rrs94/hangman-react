@@ -5,10 +5,10 @@ import {
   StyledSpace as Space,
 } from './styled';
 
-const Phrase = ({ text, chars }) => {
+const Phrase = ({ className, text, chars }) => {
   const listChars = text.split("");
   return (
-    <Container>
+    <Container className={className} >
       {
         listChars.map((char) => {
           const isPicked = chars[char.toLowerCase()];

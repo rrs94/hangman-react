@@ -6,6 +6,8 @@ import {
 } from './../../utils/constants';
 import {
   StyledPhrase as Phrase,
+  StyledActions as Actions,
+  StyledButton as Button,
   StyledTitle as Title,
   StyledPoleStatus as PoleStatus,
   StyledLetterPicker as LetterPicker,
@@ -17,6 +19,19 @@ export default class Hangman extends Component {
     lifes: START_LIFES,
     phrase: "This is the most awesome thing",
   };
+
+  handleNewGame = () => {
+    this.setState({
+      lifes: START_LIFES,
+      phrase: "New Word for a new game",
+    });
+  }
+
+  handleResetGame = () => {
+    this.setState({
+      lifes: START_LIFES,
+    });
+  }
 
   render() {
     const { lifes, phrase } = this.state;
@@ -41,6 +56,19 @@ export default class Hangman extends Component {
           x={currentLife.x}
         />
         <LetterPicker />
+        <Actions>
+          <Button
+            primary
+            onClick={this.handleNewGame}
+          >
+            New Game
+          </Button>
+          <Button
+            onClick={this.handleResetGame}
+          >
+            Restart
+          </Button>
+        </Actions>
       </Container>
     );
   }
