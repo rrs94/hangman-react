@@ -1,9 +1,26 @@
 import React from 'react';
+import {
+  StyledContainer as Container,
+  StyledChar as Char,
+  StyledSpace as Space,
+} from './styled';
 
-const Phrase = ({ text }) => (
-  <div>
-    <h1>{text}</h1>
-  </div>
-);
+const Phrase = ({ text, chars }) => {
+  const listChars = text.split("");
+  return (
+    <Container>
+      {
+        listChars.map((char) => {
+          const isPicked = chars[char.toLowerCase()];
+          if (char === " ") {
+            return <Space />
+          } else {
+            return <Char active={isPicked}>{isPicked ? char : "•"}</Char>;
+          }
+        })
+      }
+    </Container>
+  )
+}
 
 export default Phrase;
